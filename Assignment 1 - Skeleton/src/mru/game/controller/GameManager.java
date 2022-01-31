@@ -22,6 +22,7 @@ public class GameManager
 		appMen = new AppMenu();
 		loadData();
 		launchApplication();
+		
 	}
 
 	private void loadData() throws Exception

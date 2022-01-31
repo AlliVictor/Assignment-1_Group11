@@ -12,6 +12,5 @@ public class AppDriver
 		// hint - It usually calls method from GameManager class to start the app, so only one or two lines will be written here
 		
 		new GameManager();
-
 	}
 }

@@ -10,6 +10,7 @@ public class Player
 	String balance;
 	int numOfWins;
 	
+	
 	public Player(String name, String balance, int numOfWins)
 	{
 		this.name = name;

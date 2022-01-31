@@ -6,7 +6,6 @@ import mru.game.model.Player;
 
 public class AppMenu 
 {
-
 	Scanner input;
 	
 	public AppMenu()

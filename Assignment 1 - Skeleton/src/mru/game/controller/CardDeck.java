@@ -8,7 +8,8 @@ import java.util.Collections;
  * @author ksalmani
  * @version 1.0
  */
-public class CardDeck {
+public class CardDeck 
+{
 	
 	/**
 	 * deck holds all of the cards that currently are in the current deck
@@ -18,7 +19,8 @@ public class CardDeck {
 	/**
 	 * This constructor initiate the arraylist and calls the repective methods to create a new deck
 	 */
-	public CardDeck() {
+	public CardDeck() 
+	{
 		deck = new ArrayList<Card>();
 		createDeck();
 		shuffleDeck();
@@ -27,15 +29,18 @@ public class CardDeck {
 	/**
 	 * This method creates the deck
 	 */
-	private void createDeck() {
+	private void createDeck() 
+	{
 		// suits holds the name of the suits
 		String[] suits = {"Spades", "Diamond", "Clubs", "Hearts"};
 		
 		/*
 		 * The for loop creates a whole new deck based on their suit and rank
 		 */
-		for (int i = 0 ; i < 4; i++) {
-			for (int j = 1 ; j <=13 ; j++) {
+		for (int i = 0 ; i < 4; i++) 
+		{
+			for (int j = 1 ; j <=13 ; j++) 
+			{
 				deck.add(new Card (j,suits[i]));
 			}
 		}
@@ -45,7 +50,8 @@ public class CardDeck {
 	/**
 	 * this method shuffle the deck after creating a new deck
 	 */
-	private void shuffleDeck() {
+	private void shuffleDeck() 
+	{
 		Collections.shuffle(deck); 
 	}
 
@@ -53,7 +59,8 @@ public class CardDeck {
 	 * The deck getter method
 	 * @return the deck
 	 */
-	public ArrayList<Card> getDeck() {
+	public ArrayList<Card> getDeck() 
+	{
 		return deck;
 	}
 }
