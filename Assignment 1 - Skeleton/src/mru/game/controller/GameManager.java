@@ -27,19 +27,19 @@ public class GameManager
 
 	private void loadData() throws Exception
 	{
-		File db = new File(FILEPATH);
+		File CI = new File(FILEPATH);
 		String currentLine;
 		String [] splittedLine;
 		
-		if (db.exists())
+		if (CI.exists())
 		{
-			Scanner fileReader = new Scanner(db);
+			Scanner fileReader = new Scanner(CI);
 			
 			while (fileReader.hasNextLine())
 			{
 				currentLine = fileReader.nextLine();
-				splittedLine = currentLine.split(";");
-				Player p = new Player(splittedLine[0], splittedLine[1], Integer.parseInt(splittedLine[2]));
+				splittedLine = currentLine.split(",");
+				Player p = new Player(splittedLine[0], Integer.parseInt(splittedLine[1]), Integer.parseInt(splittedLine[2]));
 				players.add(p);
 			}
 			
@@ -47,7 +47,7 @@ public class GameManager
 		}
 	}
 	
-	private void launchApplication() throws FileNotFoundException
+	private void launchApplication() throws Exception
 	{
 		boolean flag = true;
 		
@@ -64,7 +64,7 @@ public class GameManager
 			case 's':
 				search();
 				break;
-			
+				
 			case 'e':
 				exit();
 				flag = false;
@@ -94,8 +94,11 @@ public class GameManager
 			break;
 			
 		case 'n':
-			Player ply = searchByName();
-			appMen.showPlayer(ply);
+			//Player ply = searchByName(name);
+			//appMen.showPlayer(ply);
+			String name = appMen.promptName();
+            Player ply = searchByName(name);
+            appMen.showPlayer(ply);
 			break;
 			
 		case 'b':
@@ -113,9 +116,9 @@ public class GameManager
 		
 	}
 
-	private Player searchByName() 
+	private Player searchByName(String name) 
 	{
-		String name = appMen.promptName();
+		//String name = appMen.promptName();
 		Player ply = null;
 		
 		for(Player p : players)
@@ -132,8 +135,8 @@ public class GameManager
 
 	private void exit() throws FileNotFoundException 
 	{
-		File db = new File(FILEPATH);
-		PrintWriter pw = new PrintWriter(db);
+		File CI = new File(FILEPATH);
+		PrintWriter pw = new PrintWriter(CI);
 		
 		for (Player p : players)
 		{
@@ -143,17 +146,4 @@ public class GameManager
 		
 		pw.close();
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

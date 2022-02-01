@@ -1,7 +1,8 @@
 package mru.game.controller;
 
 
-public class PuntoBancoGame {
+public class PuntoBancoGame 
+{
 	
 	/**
 	 * In this class you implement the game
