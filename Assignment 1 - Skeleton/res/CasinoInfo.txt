@@ -1,3 +1,6 @@
-Ali;75;10;
-Khosro;1639;18;
-Eli;1000;18;
+Alli,0.0,0,
+femi,55.0,0,
+mike,90.0,0,
+Victor Alli,50.0,0,
+Victor Alli,119.0,1,
+victoralli,77.1,2,

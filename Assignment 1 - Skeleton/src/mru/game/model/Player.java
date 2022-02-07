@@ -7,14 +7,14 @@ public class Player
 	 * It is basically a model class for each record in the txt file
 	 */
 	String name;
-	int balance;
+	double balance;
 	int numOfWins;
 	
 	
-	public Player(String name, int balance, int numOfWins)
+	public Player(String name, double d, int numOfWins)
 	{
 		this.name = name;
-		this.balance = balance;
+		this.balance = d;
 		this.numOfWins = numOfWins;
 	}
 	
@@ -28,12 +28,12 @@ public class Player
 		return name;
 	}
 	
-	public void setbalance(int balance)
+	public void setBalance(double d)
 	{
-		this.balance = balance;
+		this.balance = d;
 	}
 	
-	public int getBalance()
+	public double getBalance()
 	{
 		return balance;
 	}

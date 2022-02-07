@@ -24,7 +24,7 @@ public class AppMenu
 		System.out.println("\t(S) Search");
 		System.out.println("\t(E) Exit\n");
 
-		System.out.print("Enter a choice: ");
+		System.out.print("Enter your Choice: ");
 		char option = input.nextLine().toLowerCase().charAt(0);
 		return option;
 	}
@@ -37,10 +37,22 @@ public class AppMenu
 		System.out.println("\t(N) Looking for a Name");
 		System.out.println("\t(B) Back to Main menu\n");
 		
-		System.out.print("Enter a choice: ");
+		System.out.print("Enter your Choice: ");
 		char option = input.nextLine().toLowerCase().charAt(0);
 		return option;
 	}
+	
+	public char showBetmenu() {
+        System.out.println("\nWhat do you want to bet on?");
+        
+        System.out.println("\t(P) Player Wins ");
+        System.out.println("\t(B) Banker Wins");
+        System.out.println("\t(T) Tie Game\n");
+        
+        System.out.print("Enter your Choice: ");
+        char option = input.nextLine().toLowerCase().charAt(0);
+        return option;
+    }
 	
 	public String promptName()
 	{
@@ -48,6 +60,21 @@ public class AppMenu
 		String name = input.nextLine().trim();
 		return name;
 	}
+	
+	public Double promptBetAmount() 
+	{
+    	System.out.print("How much do you want to bet? ");
+    	Double val = input.nextDouble();
+    	input.nextLine();
+    	return val;
+    }
+    
+    public char promptContinue() 
+    {
+    	System.out.print("\nDo you want to play again (y/n)? ");
+    	char option = input.nextLine().toLowerCase().charAt(0);
+        return option;
+    }
 	
 	public void showPlayer(Player ply)
 	{

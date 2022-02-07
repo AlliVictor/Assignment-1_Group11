@@ -63,4 +63,15 @@ public class CardDeck
 	{
 		return deck;
 	}
+	
+	/**
+	 * Return one card from the deck in a random manner
+	 * @return random card from deck
+	 */
+	public Card getRandomCard() {
+		int random = (int) (Math.random() * deck.size());
+		Card card = deck.get(random);
+		deck.remove(random);
+		return card;
+	}
 }
