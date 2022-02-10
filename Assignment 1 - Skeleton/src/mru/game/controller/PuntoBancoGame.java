@@ -2,32 +2,26 @@ package mru.game.controller;
 import java.util.ArrayList;
 
 public class PuntoBancoGame {
-	private CardDeck deck;
-	private ArrayList<Card> playerCards;
-	private ArrayList<Card> bankCards;
+	private CardDeck deckOfCards;
+	private ArrayList<Card> playersCards;
+	private ArrayList<Card> banksCards;
 	
 	/**
-	 * In this class you implement the game
-	 * You should use CardDeck class here
-	 * See the instructions for the game rules
-	 */
-	
-	/**
-	 * Constructor
+	 * The class constructor
 	 */
 	public PuntoBancoGame() 
 	{
-		deck = new CardDeck();
-		playerCards = new ArrayList<>();
-		bankCards = new ArrayList<>();
+		deckOfCards = new CardDeck();
+		playersCards = new ArrayList<>();
+		banksCards = new ArrayList<>();
 	}
 	
 	/**
-	 * Find value of card
-	 * @param card
-	 * @return
+	 * Finds the rank of the card
+	 * @param card - collects the rank and suit
+	 * @return rank if rank is between 2 and 9, 0 if rank is greater than 10, 1 if it is neither
 	 */
-	private int getCardValue(Card card) 
+	private int getCardRank(Card card) 
 	{
 		int rank = card.getRank();
 		
@@ -47,16 +41,18 @@ public class PuntoBancoGame {
 	/**
 	 * Based on the cards determine score
 	 * @param - hand containing all cards dealt
-	 * @return
+	 * @return the value of the card rank mod 10
 	 */
 	private int getScore(ArrayList<Card> hand) 
 	{
 		int totalValue = 0;
-		for (Card card: hand) {
-			totalValue += getCardValue(card);
-		}
-		return totalValue % 10;
 		
+		for (Card card: hand) 
+		{
+			totalValue += getCardRank(card);
+		}
+		
+		return totalValue % 10;
 	}
 	
 	/**
@@ -73,27 +69,34 @@ public class PuntoBancoGame {
 		System.out.println();
 	}
 	
+	/**
+	 * Uses to print out a line of text  
+	 * @param text1, the line of text
+	 * @param text2, the line of text
+	 */
 	private void printOneLine(String text1, String text2) 
 	{
 		System.out.printf("|%-36s|%-36s|\n", text1, text2);
 	}
 	
 	/**
-	 * Create status of the game
+	 * Prints the status menu of the game
 	 */
-	private void printStatus() 
+	private void printMenuStatus() 
 	{
-		// print header
+		//Prints header
 		for (int i = 0; i < 30; i++) 
 		{
 			System.out.print(" ");
 		}
+		
 		System.out.print("- PUNTO BANCO -");
 		
 		for (int i = 0; i < 30; i++) 
 		{
 			System.out.print(" ");
 		}
+		
 		System.out.println("");
 		printHorizontalBoundary("=");
 		printOneLine("PLAYER", "BANKER");
@@ -101,36 +104,37 @@ public class PuntoBancoGame {
 		
 		for (int i = 0; i < 3; i++) 
 		{
-			if (i >= bankCards.size() && i >= playerCards.size()) 
+			if (i >= banksCards.size() && i >= playersCards.size()) 
 			{
 				printOneLine("", "");
 			} 
 			
-			else if (i >= bankCards.size()) 
+			else if (i >= banksCards.size()) 
 			{
-				printOneLine(playerCards.get(i).toString(), "");
+				printOneLine(playersCards.get(i).toString(), "");
 			} 
 			
-			else if (i >= playerCards.size()) 
+			else if (i >= playersCards.size()) 
 			{
-				printOneLine("",  bankCards.get(i).toString());
+				printOneLine("",  banksCards.get(i).toString());
 			} 
 			
 			else 
 			{
-				printOneLine(playerCards.get(i).toString(), bankCards.get(i).toString());
+				printOneLine(playersCards.get(i).toString(), banksCards.get(i).toString());
 			}
 			
 			printHorizontalBoundary("-");
 		}
-		printOneLine("PLAYER POINTS: " + getScore(playerCards), "BANKER POINTS: " + getScore(bankCards));
+		
+		printOneLine("PLAYER POINTS: " + getScore(playersCards), "BANKER POINTS: " + getScore(banksCards));
 		printHorizontalBoundary("=");
 	}
 	
 	/**
-	 * find winner
-	 * @param playerScore
-	 * @param bankScore
+	 * Finds the winner of the bet
+	 * @param playerScore - the players score
+	 * @param bankScore - the banks score
 	 * @return 1 if player wins, 2 if banker wins, 0 if tie
 	 */
 	private int findWinner(int playerScore, int bankScore) 
@@ -147,40 +151,43 @@ public class PuntoBancoGame {
 		
 		return 2;
 	}
+	
 	/**
-	 * Entry function to play the game
+	 * Starts the game
 	 * @return 1 if player wins, 2 if banker wins, 0 if tie
 	 */
 	public int playGame() 
 	{
-		// player and banker each get 2 cards
+		//If the player and the banker each get 2 cards
 		for (int i = 0; i < 2; i++) 
 		{
-			playerCards.add(deck.getRandomCard());
-			bankCards.add(deck.getRandomCard());
+			playersCards.add(deckOfCards.getRandomCard());
+			banksCards.add(deckOfCards.getRandomCard());
 		}
 		
-		// Compute scores
-		int playerScore = getScore(playerCards);
-		int bankScore = getScore(bankCards);
+		//Calculates the scores
+		int playerScore = getScore(playersCards);
+		int bankScore = getScore(banksCards);
+		
 		
 		if (playerScore >= 8 || bankScore >= 8)
 		{
-			printStatus();
+			printMenuStatus();
 			return findWinner(playerScore, bankScore);
 		}
 		
+		//Calculates all the card values to score possibilities
 		if (0 <= playerScore && playerScore <= 5) 
 		{
-			Card playerDraws = deck.getRandomCard();
-			playerCards.add(playerDraws);
-			int cardValue = getCardValue(playerDraws);
+			Card playerDraws = deckOfCards.getRandomCard();
+			playersCards.add(playerDraws);
+			int cardValue = getCardRank(playerDraws);
 			
 			if (cardValue == 2 || cardValue == 3) 
 			{
 				if (0 <= bankScore && bankScore <= 4) 
 				{
-					bankCards.add(deck.getRandomCard());
+					banksCards.add(deckOfCards.getRandomCard());
 				}
 			} 
 			
@@ -188,7 +195,7 @@ public class PuntoBancoGame {
 			{
 				if (0 <= bankScore && bankScore <= 5) 
 				{
-					bankCards.add(deck.getRandomCard());
+					banksCards.add(deckOfCards.getRandomCard());
 				}
 			} 
 			
@@ -196,7 +203,7 @@ public class PuntoBancoGame {
 			{
 				if (0 <= bankScore && bankScore <= 6) 
 				{
-					bankCards.add(deck.getRandomCard());
+					banksCards.add(deckOfCards.getRandomCard());
 				}
 			} 
 			
@@ -204,7 +211,7 @@ public class PuntoBancoGame {
 			{
 				if (0 <= bankScore && bankScore <= 2) 
 				{
-					bankCards.add(deck.getRandomCard());
+					banksCards.add(deckOfCards.getRandomCard());
 				}				
 			} 
 			
@@ -212,7 +219,7 @@ public class PuntoBancoGame {
 			{
 				if (0 <= bankScore && bankScore <= 3) 
 				{
-					bankCards.add(deck.getRandomCard());
+					banksCards.add(deckOfCards.getRandomCard());
 				}
 			}
 		} 
@@ -221,11 +228,14 @@ public class PuntoBancoGame {
 		{
 			if (0 <= bankScore && bankScore <= 5) 
 			{
-				bankCards.add(deck.getRandomCard());
+				banksCards.add(deckOfCards.getRandomCard());
 			}
 		}
 		
-		printStatus();
-		return findWinner(getScore(playerCards), getScore(bankCards));
+		//Prints the menu status
+		printMenuStatus();
+		
+		//Returns the winner for the winner, while displaying their scores
+		return findWinner(getScore(playersCards), getScore(banksCards));
 	}
 }

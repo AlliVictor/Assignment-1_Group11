@@ -12,12 +12,12 @@ public class CardDeck
 {
 	
 	/**
-	 * deck holds all of the cards that currently are in the current deck
+	 * The deck that holds all of the cards that are in the current deck
 	 */
 	private ArrayList <Card> deck;
 	
 	/**
-	 * This constructor initiate the arraylist and calls the repective methods to create a new deck
+	 * This constructor initiate the arraylist and calls the respective methods to create a new deck
 	 */
 	public CardDeck() 
 	{
@@ -43,12 +43,11 @@ public class CardDeck
 			{
 				deck.add(new Card (j,suits[i]));
 			}
-		}
-		
+		}	
 	}
 
 	/**
-	 * this method shuffle the deck after creating a new deck
+	 * This method shuffle the deck after creating a new deck
 	 */
 	private void shuffleDeck() 
 	{
@@ -56,7 +55,7 @@ public class CardDeck
 	}
 
 	/**
-	 * The deck getter method
+	 * Gets the deck
 	 * @return the deck
 	 */
 	public ArrayList<Card> getDeck() 
@@ -65,10 +64,11 @@ public class CardDeck
 	}
 	
 	/**
-	 * Return one card from the deck in a random manner
+	 * Gets one card from the deck in a random order
 	 * @return random card from deck
 	 */
-	public Card getRandomCard() {
+	public Card getRandomCard() 
+	{
 		int random = (int) (Math.random() * deck.size());
 		Card card = deck.get(random);
 		deck.remove(random);

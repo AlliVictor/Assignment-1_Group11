@@ -5,8 +5,6 @@ import mru.game.view.AppMenu;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -18,6 +16,10 @@ public class GameManager
 	ArrayList<Player> players;
 	AppMenu appMen;
 	
+	/**
+	 * The class constructor
+	 * @throws Exception
+	 */
 	public  GameManager() throws Exception
 	{
 		players = new ArrayList<>();
@@ -27,6 +29,10 @@ public class GameManager
 		
 	}
 
+	/**
+	 * Loads the game's data an information
+	 * @throws Exception
+	 */
 	private void loadData() throws Exception
 	{
 		File CI = new File(FILEPATH);
@@ -49,6 +55,10 @@ public class GameManager
 		}
 	}
 	
+	/**
+	 * Launches the game application
+	 * @throws Exception
+	 */
 	private void launchApplication() throws Exception
 	{
 		boolean flag = true;
@@ -80,6 +90,9 @@ public class GameManager
 	}
 	
 
+	/**
+	 * Runs the core game, itself
+	 */
 	private void playGame() 
 	{
 		String name = appMen.promptName();
@@ -102,10 +115,13 @@ public class GameManager
 		printHorizontalBoundary("*");
 		boolean flag = true;
 		
-		do {
+		while(flag)
+		{
 			playGameInner(p);
 			char option = appMen.promptContinue();
-			switch (option) {
+			
+			switch (option) 
+			{
 				case 'y':
 					break;
 					
@@ -118,19 +134,25 @@ public class GameManager
 					break;
 			}	
 		} 
-		
-		while (flag);
 	}
 	
+	/**
+	 * Runs the sub core of the game
+	 * @param p what that player chooses
+	 */
 	private void playGameInner(Player p) 
 	{
 		int guess = -1;
 		boolean flag = false;
 		char option;
-		do {
+		
+		while(flag) 
+		{
 			flag = false;
 			option = appMen.showBetmenu();
-			switch (option) {
+			
+			switch (option) 
+			{
 				case 'p':
 					guess = 1;
 					break;
@@ -149,8 +171,6 @@ public class GameManager
 			}	
 		} 
 		
-		while (flag);
-		
 		Double bet = appMen.promptBetAmount();
 		
 		if (bet > p.getBalance()) 
@@ -167,17 +187,20 @@ public class GameManager
 			{
 				p.setBalance(p.getBalance() + bet);
 				p.setNumOfWins(p.getNumOfWins() + 1);
-				printWinLoss(true, bet);
+				printWinAndLoss(true, bet);
 			} 
 			
 			else 
 			{
 				p.setBalance(p.getBalance() - bet);
-				printWinLoss(false, bet);
+				printWinAndLoss(false, bet);
 			}
 		}
 	}
 
+	/**
+	 * Where the player can look to search fro information
+	 */
 	private void search() 
 	{
 		char option = appMen.showSubMenu();
@@ -200,7 +223,11 @@ public class GameManager
 			break;
 		}
 	}
+	
 
+	/**
+	 * Where the player can find top players for the game
+	 */
 	private void topPlayer() 
 	{
 		if (players.size() == 0) 
@@ -210,13 +237,13 @@ public class GameManager
 		}
 		
 		printHeader("TOP PLAYERS");
-		int maxScore = Integer.MIN_VALUE;
+		int highestScore = Integer.MIN_VALUE;
 		
 		for (Player p: players) 
 		{
-			if (p.getNumOfWins() > maxScore) 
+			if (p.getNumOfWins() > highestScore) 
 			{
-				maxScore = p.getNumOfWins();
+				highestScore = p.getNumOfWins();
 			}
 		}
 		
@@ -226,7 +253,7 @@ public class GameManager
 		
 		for (Player p: players) 
 		{
-			if (p.getNumOfWins() == maxScore) 
+			if (p.getNumOfWins() == highestScore) 
 			{
 				printOneLine(p.getName(), Integer.toString(p.getNumOfWins()));
 				printHorizontalBoundary("-");
@@ -234,6 +261,9 @@ public class GameManager
 		}	
 	}
 
+	/**
+	 * Where the player can search other players and themselves
+	 */
 	private void searchPlayer() 
 	{
 		String name = appMen.promptName();
@@ -250,6 +280,11 @@ public class GameManager
 		}
 	}
 	
+	/**
+	 * Assists the previous method
+	 * @param name of the person being searched
+	 * @return that players information
+	 */
 	private Player searchByName(String name) 
 	{
 		for (Player p: players) 
@@ -259,9 +294,14 @@ public class GameManager
 				return p;
 			}
 		}
+		
 		return null;
 	}
 
+	/**
+	 * Exists the game and saves all information inputed and done by user
+	 * @throws FileNotFoundException
+	 */
 	private void exit() throws FileNotFoundException 
 	{
 		File CI = new File(FILEPATH);
@@ -271,11 +311,16 @@ public class GameManager
 		{
 			pw.println(p.format());
 		}
+		
 		System.out.println("\nSaving... \nDone! Please visit us again.");
 		
 		pw.close();
 	}
 	
+	/**
+	 * Prints out the header box for table
+	 * @param head - the header text
+	 */
 	private void printHeader(String head) 
 	{
 		for (int i = 0; i < 30; i++) 
@@ -292,16 +337,34 @@ public class GameManager
 		System.out.println("");
 	}
 	
+	/**
+	 * Prints the object needed for "formating"
+	 * Sets its pattern
+	 * @param text1 - the object it would be written in
+	 * @param text2 - the object it would be written in
+	 */
 	private void printOneLine(String text1, String text2) 
 	{
 		System.out.printf("|%-36s|%-36s|\n", text1, text2);
 	}
 	
-	private void printOneLineThreeText(String pName, String wins, String balance) 
+	/**
+	 * Prints the object needed for "formating"
+	 * Sets its pattern
+	 * @param pName - players name
+	 * @param wins - players wins
+	 * @param balance - players balance
+	 */
+	private void printLineOfThreeTexts(String pName, String wins, String balance) 
 	{
 		System.out.printf("|%-24s|%-24s|%-23s|\n", pName, wins, balance);
 	}
 	
+	/**
+	 * Prints the object needed for "formating"
+	 * Sets its amount
+	 * @param token - the object that would be repeated
+	 */
 	private void printHorizontalBoundary(String token) 
 	{
 		for (int i = 0; i < 75; i++) 
@@ -312,16 +375,24 @@ public class GameManager
 		System.out.println();
 	}
 	
+	/**
+	 * Prints out the player info table
+	 * @param p - the players info
+	 */
 	private void printPlayerInfo(Player p) 
 	{
 		printHeader("PLAYER INFO");
 		printHorizontalBoundary("=");
-		printOneLineThreeText("NAME", "# WINS", "BALANCE");
+		printLineOfThreeTexts("NAME", "# WINS", "BALANCE");
 		printHorizontalBoundary("=");
-		printOneLineThreeText(p.getName(), Integer.toString(p.getNumOfWins()),Double.toString(p.getBalance()) + " $");
+		printLineOfThreeTexts(p.getName(), Integer.toString(p.getNumOfWins()),Double.toString(p.getBalance()) + " $");
 		printHorizontalBoundary("-");
 	}
 	
+	/**
+	 * Prints the spaces needed for "formating"
+	 * @param n - the spaces thatr would be repeted
+	 */
 	private void printSpaces(int n) 
 	{
 		for (int i = 0; i < n; i++) 
@@ -329,7 +400,13 @@ public class GameManager
 			System.out.print(" ");
 		}
 	}
-	private void printWinLoss(boolean win, Double bet) 
+	
+	/**
+	 * Prints the table for who wins and who losses
+	 * @param win - if there is a win
+	 * @param bet - and how much was bet
+	 */
+	private void printWinAndLoss(boolean win, Double bet) 
 	{
 		printSpaces(12);
 		for (int i = 0; i < 40; i++) 

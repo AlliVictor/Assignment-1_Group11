@@ -8,13 +8,17 @@ public class AppMenu
 {
 	Scanner input;
 	
+	/**
+	 * The class constructor
+	 */
 	public AppMenu()
 	{
 		input = new Scanner(System.in);
 	}
+	
 	/**
-	 * This class will be used to show the menus and sub menus to the user
-	 * It also prompts the user for the inputs and validates them 
+	 * Shows the main menu
+	 * @return the option chosen
 	 */
 	public char showMainMenu()
 	{
@@ -29,6 +33,10 @@ public class AppMenu
 		return option;
 	}
 	
+	/**
+	 * Shows the sub menu
+	 * @return the option chosen
+	 */
 	public char showSubMenu()
 	{
 		System.out.println("\nSelect one of these options:\n");
@@ -42,6 +50,10 @@ public class AppMenu
 		return option;
 	}
 	
+	/**
+	 * Shows the bet menu
+	 * @return the option chosen
+	 */
 	public char showBetmenu() {
         System.out.println("\nWhat do you want to bet on?");
         
@@ -54,6 +66,10 @@ public class AppMenu
         return option;
     }
 	
+	/**
+	 * Prompts for the players name
+	 * @return the players name
+	 */
 	public String promptName()
 	{
 		System.out.print("Enter a name here: ");
@@ -61,14 +77,22 @@ public class AppMenu
 		return name;
 	}
 	
+	/**
+	 * Prompts for the players bet amount
+	 * @return the value of the bet
+	 */
 	public Double promptBetAmount() 
 	{
     	System.out.print("How much do you want to bet? ");
-    	Double val = input.nextDouble();
+    	Double value = input.nextDouble();
     	input.nextLine();
-    	return val;
+    	return value;
     }
     
+	/**
+	 * Prompts the player if they want to play again
+	 * @return the option chosen
+	 */
     public char promptContinue() 
     {
     	System.out.print("\nDo you want to play again (y/n)? ");
@@ -76,6 +100,10 @@ public class AppMenu
         return option;
     }
 	
+    /**
+     * Grabs the information of the player and displays it
+     * @param ply
+     */
 	public void showPlayer(Player ply)
 	{
 		System.out.println(ply);
