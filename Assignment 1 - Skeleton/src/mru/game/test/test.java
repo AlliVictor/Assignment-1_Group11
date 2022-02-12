@@ -45,7 +45,7 @@ class test
         assertEquals(obj1.getNumOfWins(), 10);
     }
     
-
+ 
     @Test
     void testSettersPlayer() {
         Player obj1 = new Player ("name", 10.0, 10);
