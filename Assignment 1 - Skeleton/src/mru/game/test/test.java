@@ -126,7 +126,7 @@ class test
         
         return false;
     }
-    
+     
     
     private ArrayList<Card> getDeepCopy(ArrayList<Card> obj) 
     {
